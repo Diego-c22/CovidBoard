@@ -3,35 +3,42 @@
     <h1 class="name-country">{{ name }}</h1>
     <div class="info-country">
       <div class="info">
-        <div class="icon-info">
-          <i class=" icon fas fa-head-side-virus"></i>
-          <span>Confirmed</span>
+        <div class="center">
+          <div class="background-icon">
+            <i class=" icon fas fa-head-side-virus"></i>
+          </div>
         </div>
-        <p>{{ country.confirmed | amount }}</p>
+
+        <p>{{ country.confirmed | amount }} <span>Confirmed</span></p>
       </div>
 
       <div class="info">
-        <div class="icon-info">
-          <i class=" icon fas fa-exclamation-circle"></i>
-          <span>Critical</span>
+        <div class="center">
+          <div class="background-icon">
+            <i class=" icon fas fa-exclamation-circle"></i>
+          </div>
         </div>
-        <p>{{ country.critical | amount }}</p>
+        <p>{{ country.critical | amount }} <span>Critical</span></p>
       </div>
 
       <div class="info">
-        <div class="icon-info">
-          <i class=" icon fas fa-skull-crossbones"></i>
-          <span>Deaths</span>
+        <div class="center">
+          <div class="background-icon">
+            <i class=" icon fas fa-skull-crossbones"></i>
+          </div>
         </div>
-        <p>{{ country.deaths | amount }}</p>
+
+        <p>{{ country.deaths | amount }} <span>Deaths</span></p>
       </div>
 
       <div class="info">
-        <div class="icon-info">
-          <i class=" icon fas fa-fist-raised"></i>
-          <span>Recovered</span>
+        <div class="center">
+          <div class="background-icon">
+            <i class=" icon fas fa-fist-raised"></i>
+          </div>
         </div>
-        <p>{{ country.recovered | amount }}</p>
+
+        <p>{{ country.recovered | amount }} <span>Recovered</span></p>
       </div>
     </div>
 
@@ -96,6 +103,11 @@ export default {
 
 <style lang="stylus">
 @import '../assets/css/_variables.styl'
+
+  .center
+    display: flex
+    justify-content: center
+
   .name-country
     font-size: 10vw
     text-align: center
@@ -112,15 +124,21 @@ export default {
 
   .info
     text-align: center
-    background-color: terceary-color-light
+    background-color: extra-color
     border-radius: 20px
-    box-shadow: 2px 2px 4px terceary-color-light
+    box-shadow: 2px 2px 1px extra-color
     margin: 10px
-
-  .icon-info
     display: grid
-    grid-template-rows: 2fr 1fr
-    justify-content: center
+    grid-template-columns: 1fr 3fr
     align-items: center
+    justify-content: center
+
+  .background-icon
+    background-color: primary-color
+    padding: 5px
+    width: 30px
+    height: 30px
+    border-radius: 50%
+    color: extra-color
     text-align: center
 </style>
