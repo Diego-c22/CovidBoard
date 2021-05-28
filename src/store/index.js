@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     country: {},
-    cuntriesRegion: {}
+    cuntriesRegion: {},
+    isLoading: false
   },
   mutations: {
     changeCountry (state, paylod = {}) {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     getCountriesRegion (state, payload = {}) {
       state.cuntriesRegion = payload
+    },
+    changeStateLoading (state, paylod = false) {
+      state.isLoading = paylod
     }
   },
   actions: {

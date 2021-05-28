@@ -1,55 +1,56 @@
 <template>
   <div class="container">
     <h1 class="name-country">{{ name }}</h1>
-    <div class="info-country">
-      <div class="info">
-        <div class="center">
-          <div class="background-icon">
-            <i class=" icon fas fa-head-side-virus"></i>
-          </div>
-        </div>
-
-        <p>{{ country.confirmed | amount }} <span>Confirmed</span></p>
-      </div>
-
-      <div class="info">
-        <div class="center">
-          <div class="background-icon">
-            <i class=" icon fas fa-exclamation-circle"></i>
-          </div>
-        </div>
-        <p>{{ country.critical | amount }} <span>Critical</span></p>
-      </div>
-
-      <div class="info">
-        <div class="center">
-          <div class="background-icon">
-            <i class=" icon fas fa-skull-crossbones"></i>
-          </div>
-        </div>
-
-        <p>{{ country.deaths | amount }} <span>Deaths</span></p>
-      </div>
-
-      <div class="info">
-        <div class="center">
-          <div class="background-icon">
-            <i class=" icon fas fa-fist-raised"></i>
-          </div>
-        </div>
-
-        <p>{{ country.recovered | amount }} <span>Recovered</span></p>
-      </div>
-    </div>
+    <h2 class="subtitle center">{{ countryData.region }}</h2>
 
     <div class="country-detail">
-      <img :src="countryData.flag" alt="country.name">
-      <div class="info-detail">
-        <p><span class="bold">Region:</span> {{ countryData.region }}</p>
-        <p><span class="bold">Population:</span> {{ countryData.population }}</p>
-        <p><span class="bold">Capital:</span> {{ countryData.capital }}</p>
-      </div>
+      <img class="img" :src="countryData.flag" alt="country.name">
+
+      <div class="info-country">
+        <div class="info">
+          <div class="center">
+            <div class="background-icon">
+              <i class=" icon fas fa-head-side-virus"></i>
+            </div>
+          </div>
+
+          <p>{{ country.confirmed | amount }} <span>Confirmed</span></p>
+        </div>
+
+        <div class="info">
+          <div class="center">
+            <div class="background-icon">
+              <i class=" icon fas fa-exclamation-circle"></i>
+            </div>
+          </div>
+          <p>{{ country.critical | amount }} <span>Critical</span></p>
+        </div>
+
+        <div class="info">
+          <div class="center">
+            <div class="background-icon">
+              <i class=" icon fas fa-skull-crossbones"></i>
+            </div>
+          </div>
+
+          <p>{{ country.deaths | amount }} <span>Deaths</span></p>
+        </div>
+
+        <div class="info">
+          <div class="center">
+            <div class="background-icon">
+              <i class=" icon fas fa-fist-raised"></i>
+            </div>
+          </div>
+
+          <p>{{ country.recovered | amount }} <span>Recovered</span></p>
+        </div>
+
+        <p class="p-dark-color center">Last update: {{ lastUpdate }}</p>
     </div>
+
+    </div>
+    <h2 class="subtitle center">More countries in {{ countryData.region }}</h2>
 
     <div class="countries">
       <div v-for="flag in countriesRegion" :key="flag.numericCode">
@@ -95,18 +96,35 @@ export default {
     getFlagsByRegion(region)
       .then(res => {
         this.countriesRegion = res
-        this.countriesRegion.length = 5
+        this.countriesRegion = this.countriesRegion.filter(item => item.name !== this.countryData.name)
+        this.countriesRegion.length = 10
       })
+  },
+
+  computed: {
+    lastUpdate () {
+      return this.country.lastUpdate.slice(0, 10)
+    }
   }
 }
 </script>
 
 <style lang="stylus">
 @import '../assets/css/_variables.styl'
+  img
+    max-width: 100%
 
   .center
     display: flex
     justify-content: center
+
+  .p-dark-color
+    color: extra-color
+
+  .subtitle
+    color: extra-color
+    font-size: x-large
+    margin: 0 0 10px 0
 
   .name-country
     font-size: 10vw
@@ -115,11 +133,12 @@ export default {
     margin: 0
     color: terceary-color
 
-  .info-country
+  .country-detail
     display: grid
-    grid-template-columns: repeat(4, 1fr)
-    justify-content: space-between
-    align-items: center
+    grid-template-columns: 2fr 1fr
+    margin: 30px
+
+  .info-country
     color: primary-color
 
   .info
@@ -127,9 +146,10 @@ export default {
     background-color: extra-color
     border-radius: 20px
     box-shadow: 2px 2px 1px extra-color
-    margin: 10px
+    margin: 20px 10px
+    padding: 0 20px
     display: grid
-    grid-template-columns: 1fr 3fr
+    grid-template-columns: 1fr 5fr
     align-items: center
     justify-content: center
 

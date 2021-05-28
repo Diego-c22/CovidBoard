@@ -2,8 +2,8 @@
   <div class="nav-bar">
     <h1>CovidBoard<span><i class="fas fa-virus"></i></span></h1>
     <div class="links">
-      <a href="">Home</a>
-      <a href="">Advice</a>
+      <router-link to="/">Home</router-link>
+      <router-link to="advice">Advices</router-link>
     </div>
   </div>
 </template>
