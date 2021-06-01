@@ -10,13 +10,7 @@
 
 <script>
 export default {
-  name: 'NavBar',
-  data () {
-    return {
-      lastestTotals: {}
-    }
-  }
-
+  name: 'NavBar'
 }
 </script>
 

@@ -14,7 +14,7 @@
             </div>
           </div>
 
-          <p>{{ country.confirmed | amount }} <span>Confirmed</span></p>
+          <p v-if="country">{{ country.confirmed | amount }} <span>Confirmed</span></p>
         </div>
 
         <div class="info">
@@ -23,7 +23,7 @@
               <i class=" icon fas fa-exclamation-circle"></i>
             </div>
           </div>
-          <p>{{ country.critical | amount }} <span>Critical</span></p>
+          <p v-if="country">{{ country.critical | amount }} <span>Critical</span></p>
         </div>
 
         <div class="info">
@@ -33,7 +33,7 @@
             </div>
           </div>
 
-          <p>{{ country.deaths | amount }} <span>Deaths</span></p>
+          <p v-if="country">{{ country.deaths | amount }} <span>Deaths</span></p>
         </div>
 
         <div class="info">
@@ -43,10 +43,10 @@
             </div>
           </div>
 
-          <p>{{ country.recovered | amount }} <span>Recovered</span></p>
+          <p v-if="country">{{ country.recovered | amount }} <span>Recovered</span></p>
         </div>
 
-        <p class="p-dark-color center">Last update: {{ lastUpdate }}</p>
+        <p v-if="country" class="p-dark-color center">Last update: {{ lastUpdate }}</p>
     </div>
 
     </div>
@@ -76,34 +76,46 @@ export default {
   },
 
   created () {
-    this.name = this.$route.params.name
-    const region = this.$route.params.region
-    getCountry(this.name)
-      .then(response => {
-        this.country = response[0]
-      })
+    this.getData()
+  },
 
-    this.countryData = this.$store.state.country
-
-    if (this.countryData) {
-      getFlagsByName(this.name)
-        .then(res => {
-          console.log(res)
-          this.countryData = res[0]
-        })
+  watch: {
+    $route () {
+      this.getData()
     }
-    console.log(!this.countryData)
-    getFlagsByRegion(region)
-      .then(res => {
-        this.countriesRegion = res
-        this.countriesRegion = this.countriesRegion.filter(item => item.name !== this.countryData.name)
-        this.countriesRegion.length = 10
-      })
+  },
+
+  methods: {
+    getData () {
+      this.name = this.$route.params.name
+      const region = this.$route.params.region
+      getCountry(this.name)
+        .then(response => {
+          this.country = response[0]
+        })
+
+      this.countryData = this.$store.state.country
+
+      if (this.countryData) {
+        getFlagsByName(this.name)
+          .then(res => {
+            this.countryData = res[0]
+          })
+      }
+
+      getFlagsByRegion(region)
+        .then(res => {
+          this.countriesRegion = res
+          this.countriesRegion = this.countriesRegion.filter(item => item.name !== this.countryData.name)
+          this.countriesRegion.length = 10
+        })
+        // .finally(() => { this.$store.commit('changeStateLoading', false) })
+    }
   },
 
   computed: {
     lastUpdate () {
-      return this.country.lastUpdate.slice(0, 10)
+      return this.country.lastUpdate ? this.country.lastUpdate.slice(0, 10) : ''
     }
   }
 }

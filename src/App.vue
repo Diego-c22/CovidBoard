@@ -28,6 +28,7 @@ html
 body
   margin: 0
   height: 100%
+  font-family: thinoo
   //background: linear-gradient(primary-color , secundary-color)
   background-color: primary-color
 </style>

@@ -52,17 +52,25 @@ export default {
     }
   },
 
-  created () {
-    getLastestTotals()
-      .then(respose => {
-        this.lastestTotals = respose
-        this.lastestTotals = this.lastestTotals[0]
-      })
+  mounted () {
+    this.getData()
+  },
 
-    getFlags()
-      .then(response => {
-        this.flags = response
-      })
+  methods: {
+    getData () {
+      // this.$store.commit('changeStateLoading', true)
+      getLastestTotals()
+        .then(respose => {
+          this.lastestTotals = respose
+          this.lastestTotals = this.lastestTotals[0]
+        })
+
+      getFlags()
+        .then(response => {
+          this.flags = response
+        })
+        // .finally(() => this.$store.commit('changeStateLoading', false))
+    }
   },
 
   computed: {
