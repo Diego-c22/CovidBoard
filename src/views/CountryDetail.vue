@@ -1,71 +1,77 @@
 <template>
-  <div class="container">
-    <h1 class="name-country">{{ name }}</h1>
-    <h2 class="subtitle center">{{ countryData.region }}</h2>
+  <div class="">
+    <div class="container" v-show="!isLoading">
+      <h1 class="name-country">{{ countryData.name }}</h1>
+      <h2 class="subtitle center">{{ countryData.region }}</h2>
 
-    <div class="country-detail">
-      <img class="img" :src="countryData.flag" alt="country.name">
+      <div class="country-detail">
+        <img class="img" :src="countryData.flag" alt="country.name">
 
-      <div class="info-country">
-        <div class="info">
-          <div class="center">
-            <div class="background-icon">
-              <i class=" icon fas fa-head-side-virus"></i>
+        <div class="info-country">
+          <div class="info">
+            <div class="center">
+              <div class="background-icon">
+                <i class=" icon fas fa-head-side-virus"></i>
+              </div>
             </div>
+
+            <p v-if="country">{{ country.confirmed | amount }} <span>Confirmed</span></p>
           </div>
 
-          <p v-if="country">{{ country.confirmed | amount }} <span>Confirmed</span></p>
-        </div>
-
-        <div class="info">
-          <div class="center">
-            <div class="background-icon">
-              <i class=" icon fas fa-exclamation-circle"></i>
+          <div class="info">
+            <div class="center">
+              <div class="background-icon">
+                <i class=" icon fas fa-exclamation-circle"></i>
+              </div>
             </div>
-          </div>
-          <p v-if="country">{{ country.critical | amount }} <span>Critical</span></p>
-        </div>
-
-        <div class="info">
-          <div class="center">
-            <div class="background-icon">
-              <i class=" icon fas fa-skull-crossbones"></i>
-            </div>
+            <p v-if="country">{{ country.critical | amount }} <span>Critical</span></p>
           </div>
 
-          <p v-if="country">{{ country.deaths | amount }} <span>Deaths</span></p>
-        </div>
-
-        <div class="info">
-          <div class="center">
-            <div class="background-icon">
-              <i class=" icon fas fa-fist-raised"></i>
+          <div class="info">
+            <div class="center">
+              <div class="background-icon">
+                <i class=" icon fas fa-skull-crossbones"></i>
+              </div>
             </div>
+
+            <p v-if="country">{{ country.deaths | amount }} <span>Deaths</span></p>
           </div>
 
-          <p v-if="country">{{ country.recovered | amount }} <span>Recovered</span></p>
+          <div class="info">
+            <div class="center">
+              <div class="background-icon">
+                <i class=" icon fas fa-fist-raised"></i>
+              </div>
+            </div>
+
+            <p v-if="country">{{ country.recovered | amount }} <span>Recovered</span></p>
+          </div>
+
+          <p v-if="country" class="p-dark-color center">Last update: {{ lastUpdate }}</p>
+      </div>
+
+      </div>
+      <h2 class="subtitle center">More countries in {{ countryData.region }}</h2>
+
+      <div class="countries">
+        <div v-for="flag in countriesRegion" :key="flag.numericCode">
+        <card :country="flag" />
         </div>
-
-        <p v-if="country" class="p-dark-color center">Last update: {{ lastUpdate }}</p>
-    </div>
-
-    </div>
-    <h2 class="subtitle center">More countries in {{ countryData.region }}</h2>
-
-    <div class="countries">
-      <div v-for="flag in countriesRegion" :key="flag.numericCode">
-      <card :country="flag" />
       </div>
     </div>
+
+    <loader v-show="isLoading"/>
+
   </div>
 </template>
 
 <script>
 import { getCountry, getFlagsByRegion, getFlagsByName } from '@/API'
 import Card from '@/components/Card'
+import Loader from '@/components/Loader.vue'
 export default {
   name: 'CountryDetail',
-  components: { Card },
+  components: { Card, Loader },
   data () {
     return {
       name: '',
@@ -86,10 +92,11 @@ export default {
   },
 
   methods: {
-    getData () {
+    async getData () {
+      this.$store.commit('changeStateLoading', true)
       this.name = this.$route.params.name
       const region = this.$route.params.region
-      getCountry(this.name)
+      await getCountry(this.name)
         .then(response => {
           this.country = response[0]
         })
@@ -97,25 +104,30 @@ export default {
       this.countryData = this.$store.state.country
 
       if (this.countryData) {
-        getFlagsByName(this.name)
+        await getFlagsByName(this.name)
           .then(res => {
             this.countryData = res[0]
           })
       }
 
-      getFlagsByRegion(region)
+      await getFlagsByRegion(region)
         .then(res => {
           this.countriesRegion = res
           this.countriesRegion = this.countriesRegion.filter(item => item.name !== this.countryData.name)
           this.countriesRegion.length = 10
         })
-        // .finally(() => { this.$store.commit('changeStateLoading', false) })
+
+      this.$store.commit('changeStateLoading', false)
     }
   },
 
   computed: {
     lastUpdate () {
       return this.country.lastUpdate ? this.country.lastUpdate.slice(0, 10) : ''
+    },
+
+    isLoading () {
+      return this.$store.state.isLoading
     }
   }
 }

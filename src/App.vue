@@ -1,22 +1,15 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
-    <router-view v-if="!isLoading"/>
-    <loader v-if="isLoading"/>
+    <router-view />
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar'
-import Loader from '@/components/Loader'
 export default {
   name: 'App',
-  components: { NavBar, Loader },
-  computed: {
-    isLoading () {
-      return this.$store.state.isLoading
-    }
-  }
+  components: { NavBar }
 
 }
 </script>

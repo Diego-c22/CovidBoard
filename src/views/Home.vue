@@ -1,37 +1,40 @@
 <template>
-  <div class="home">
-    <div class="baner">
-      <div class="left-baner">
-        <span><i class=" icon fas fa-head-side-virus"></i> {{ lastestTotals.confirmed | amount}} cases</span>
-        <span><i class=" icon fas fa-skull-crossbones"></i> {{ lastestTotals.deaths | amount}} deaths</span>
-      </div>
-      <div class="center-baner">
-        <span class="icon-center"><i class="fas fa-globe"></i></span>
-        <div class="text-center-baner">
-          <span class="">Around the world</span>
-          <button class="button">Check Adivices</button>
+  <div class="home" >
+    <div v-show="!isLoading">
+      <div class="baner">
+        <div class="left-baner">
+          <span><i class=" icon fas fa-head-side-virus"></i> {{ lastestTotals.confirmed | amount}} cases</span>
+          <span><i class=" icon fas fa-skull-crossbones"></i> {{ lastestTotals.deaths | amount}} deaths</span>
+        </div>
+        <div class="center-baner">
+          <span class="icon-center"><i class="fas fa-globe"></i></span>
+          <div class="text-center-baner">
+            <span class="">Around the world</span>
+            <button class="button">Check Adivices</button>
+          </div>
+        </div>
+        <div class="right-baner">
+          <span>{{ lastestTotals.critical | amount}} critical <i class=" icon fas fa-exclamation-circle"></i> </span>
+          <span>{{ lastestTotals.recovered | amount}} recovered <i class=" icon fas fa-fist-raised"></i> </span>
         </div>
       </div>
-      <div class="right-baner">
-        <span>{{ lastestTotals.critical | amount}} critical <i class=" icon fas fa-exclamation-circle"></i> </span>
-        <span>{{ lastestTotals.recovered | amount}} recovered <i class=" icon fas fa-fist-raised"></i> </span>
-      </div>
-    </div>
 
-    <div class="text-center">
-      <div class="search">
-        <input type="text" class="input" placeholder="Find a country" v-model="filter">
-        <i class="fas fa-search icon-input"></i>
-      </div>
-    </div>
-
-    <section class="container">
-      <div class="countries">
-        <div v-for="flag in filteredFlags" :key="flag.numericCode">
-          <card :country="flag" />
+      <div class="text-center">
+        <div class="search">
+          <input type="text" class="input" placeholder="Find a country" v-model="filter">
+          <i class="fas fa-search icon-input"></i>
         </div>
       </div>
-    </section>
+
+      <section class="container">
+        <div class="countries">
+          <div v-for="flag in filteredFlags" :key="flag.numericCode">
+            <card :country="flag" />
+          </div>
+        </div>
+      </section>
+    </div>
+    <loader v-show="isLoading"/>
 
   </div>
 </template>
@@ -39,10 +42,11 @@
 <script>
 import { getLastestTotals, getFlags } from '@/API'
 import Card from '@/components/Card'
+import Loader from '@/components/Loader.vue'
 
 export default {
   name: 'Home',
-  components: { Card },
+  components: { Card, Loader },
 
   data () {
     return {
@@ -53,23 +57,24 @@ export default {
   },
 
   mounted () {
+    this.$store.commit('changeStateLoading', true)
     this.getData()
   },
 
   methods: {
-    getData () {
-      // this.$store.commit('changeStateLoading', true)
-      getLastestTotals()
+    async getData () {
+      await getLastestTotals()
         .then(respose => {
           this.lastestTotals = respose
           this.lastestTotals = this.lastestTotals[0]
         })
 
-      getFlags()
+      await getFlags()
         .then(response => {
           this.flags = response
         })
-        // .finally(() => this.$store.commit('changeStateLoading', false))
+
+      this.$store.commit('changeStateLoading', false)
     }
   },
 
@@ -82,6 +87,10 @@ export default {
         flag.name.toLowerCase().includes(this.filter.toLowerCase()) ||
         flag.region.toLowerCase().includes(this.filter.toLowerCase())
       )
+    },
+
+    isLoading () {
+      return this.$store.state.isLoading
     }
   }
 }
