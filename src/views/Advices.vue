@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="advices">
     <h1 class="title center">Advices</h1>
 
     <div class="advice left">
@@ -135,6 +135,15 @@ When used correctly, these masks can help prevent people who are asymptomatic or
   </div>
 </template>
 
+<script>
+export default {
+  name: 'Advices',
+  created () {
+    this.$store.commit('changePage', 'advices')
+  }
+}
+</script>
+
 <style lang="stylus">
 @import '../assets/css/_variables.styl'
 
@@ -155,10 +164,12 @@ When used correctly, these masks can help prevent people who are asymptomatic or
     column-gap: 20px
     padding: 30px 20px;
     color: terceary-color
+    margin: 10px 0
+    box-shadow: 1px 6px 4px #eeeeee
 
     &.right
       grid-template-columns: 3fr 1fr
-      margin-left: 40%
+      margin-left: 5%
       border-radius: 60px 0 0 60px
 
       .content
@@ -174,7 +185,7 @@ When used correctly, these masks can help prevent people who are asymptomatic or
 
     &.left
       grid-template-columns: 1fr 3fr
-      margin-right: 40%
+      margin-right: 5%
       border-radius: 0 60px 60px 0
 
       .content
@@ -182,5 +193,32 @@ When used correctly, these masks can help prevent people who are asymptomatic or
         background-color: primary-color
         padding: 20px
 
+  .background-icon-advice
+    background-color: primary-color
+    padding: 5px
+    font-size: 50px
+    border-radius: 50%
+    width: 80px
+    height: 80px
+    color: extra-color
+
+  @media (min-width: 768px)
+    .advice
+      &.right
+        margin-left: 20%
+      &.left
+        margin-right: 20%
+
+    .background-icon-advice
+      font-size: 100px
+      width: 130px
+      height: 130px
+
+  @media (min-width: 992px)
+    .advice
+      &.right
+        margin-left: 40%
+      &.left
+        margin-right: 40%
 
 </style>

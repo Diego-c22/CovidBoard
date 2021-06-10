@@ -17,7 +17,6 @@
     height: inherit
     position: absolute
     top: 40%
-    left: 45%
 
   .circle
     padding: 15px

@@ -42,20 +42,34 @@ export default {
     box-shadow: 1px 6px 4px secundary-color-dark
 
   .image
-    width: 230px
-    height: 140px
+    width: 160px
+    height: 110px
 
     & img
       object-fit: cover
       object-position: center
-      width: 230px
-      height: 140px
+      width: 180px
+      height: 110px
 
   .name
     color: terceary-color
-    font-size: x-large
+    font-size: large
+    margin: 10px 0 0 0
 
   .region
     color: extra-color
     font-size: large
+
+@media (min-width: 470px)
+  .name
+    font-size: x-large
+
+  .image
+    width: 230px
+    height: 140px
+
+    & img
+      width: 230px
+      height: 140px
+
 </style>

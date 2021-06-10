@@ -21,6 +21,23 @@ function getCountry (country) {
     })
 }
 
+function getCountryByCode (code) {
+  const options = {
+    method: 'GET',
+    url: `${URL}country/code/`,
+    params: { name: code },
+    headers: {
+      'x-rapidapi-key': API_KEY,
+      'x-rapidapi-host': API_HOST
+    }
+  }
+  return axios.request(options)
+    .then((response) => response.data)
+    .catch(function (error) {
+      console.error(error)
+    })
+}
+
 function getDailyReportTotals (date) {
   const options = {
     method: 'GET',
@@ -56,4 +73,4 @@ function getLastestTotals () {
     })
 }
 
-export { getDailyReportTotals, getCountry, getLastestTotals }
+export { getDailyReportTotals, getCountry, getLastestTotals, getCountryByCode }

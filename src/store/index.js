@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     country: {},
     cuntriesRegion: {},
-    isLoading: false
+    isLoading: false,
+    page: ''
   },
   mutations: {
     changeCountry (state, paylod = {}) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     changeStateLoading (state, paylod = false) {
       state.isLoading = paylod
+    },
+    changePage (state, paylod = '') {
+      state.page = paylod
     }
   },
   actions: {

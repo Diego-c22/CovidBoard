@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="country-detail center">
     <div class="container" v-show="!isLoading">
       <h1 class="name-country">{{ countryData.name }}</h1>
       <h2 class="subtitle center">{{ countryData.region }}</h2>
@@ -54,7 +54,7 @@
       <h2 class="subtitle center">More countries in {{ countryData.region }}</h2>
 
       <div class="countries">
-        <div v-for="flag in countriesRegion" :key="flag.numericCode">
+        <div v-for="flag in countriesRegion" :key="flag.numericCode " class="center">
         <card :country="flag" />
         </div>
       </div>
@@ -82,6 +82,7 @@ export default {
   },
 
   created () {
+    this.$store.commit('changePage', '')
     this.getData()
   },
 
@@ -141,6 +142,7 @@ export default {
   .center
     display: flex
     justify-content: center
+    align-items: center
 
   .p-dark-color
     color: extra-color
@@ -159,11 +161,12 @@ export default {
 
   .country-detail
     display: grid
-    grid-template-columns: 2fr 1fr
+    // grid-template-columns: 2fr 1fr
     margin: 30px
 
   .info-country
     color: primary-color
+    text-align: center
 
   .info
     text-align: center
@@ -185,4 +188,16 @@ export default {
     border-radius: 50%
     color: extra-color
     text-align: center
+
+  @media (min-width: 768px)
+    .country-detail
+      display: grid
+      grid-template-columns: 3fr 2fr
+      margin: 30px
+
+  @media (min-width: 992px)
+    .country-detail
+      display: grid
+      grid-template-columns: 2fr 1fr
+      margin: 30px
 </style>
