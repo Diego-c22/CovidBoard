@@ -137,6 +137,7 @@ export default {
 </script>
 
 <style lang="stylus">
+@import '../assets/css/_variables.styl'
 
   img
     max-width: 100%
