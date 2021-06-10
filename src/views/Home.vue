@@ -100,11 +100,6 @@ export default {
 <style lang="stylus">
 @import '../assets/css/_variables.styl'
 
-.center
-  display: flex
-  justify-content: center
-  align-items: center
-
 .max-width-card
   max-width: 160px
 .baner

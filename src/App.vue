@@ -15,6 +15,7 @@ export default {
 </script>
 <style lang="stylus">
 @import './assets/css/_variables.styl'
+@import './assets/css/_utilities.styl'
 
 html
   height: 100%

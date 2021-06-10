@@ -25,7 +25,7 @@ function getCountryByCode (code) {
   const options = {
     method: 'GET',
     url: `${URL}country/code/`,
-    params: { name: code },
+    params: { code: code },
     headers: {
       'x-rapidapi-key': API_KEY,
       'x-rapidapi-host': API_HOST

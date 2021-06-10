@@ -1,5 +1,5 @@
 <template>
-  <div class="country-detail center">
+  <div class="center">
     <div class="container" v-show="!isLoading">
       <h1 class="name-country">{{ countryData.name }}</h1>
       <h2 class="subtitle center">{{ countryData.region }}</h2>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { getCountry, getFlagsByRegion, getFlagsByName } from '@/API'
+import { getCountryByCode, getFlagsByRegion, getFlagsByName } from '@/API'
 import Card from '@/components/Card'
 import Loader from '@/components/Loader.vue'
 export default {
@@ -95,21 +95,23 @@ export default {
   methods: {
     async getData () {
       this.$store.commit('changeStateLoading', true)
+
       this.name = this.$route.params.name
       const region = this.$route.params.region
-      await getCountry(this.name)
-        .then(response => {
-          this.country = response[0]
-        })
 
       this.countryData = this.$store.state.country
 
-      if (this.countryData) {
+      if (!this.countryData.name) {
         await getFlagsByName(this.name)
           .then(res => {
             this.countryData = res[0]
           })
       }
+
+      await getCountryByCode(this.countryData.alpha2Code)
+        .then(response => {
+          this.country = response[0]
+        })
 
       await getFlagsByRegion(region)
         .then(res => {
@@ -135,14 +137,9 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../assets/css/_variables.styl'
+
   img
     max-width: 100%
-
-  .center
-    display: flex
-    justify-content: center
-    align-items: center
 
   .p-dark-color
     color: extra-color
@@ -158,11 +155,6 @@ export default {
     padding: 0
     margin: 0
     color: terceary-color
-
-  .country-detail
-    display: grid
-    // grid-template-columns: 2fr 1fr
-    margin: 30px
 
   .info-country
     color: primary-color

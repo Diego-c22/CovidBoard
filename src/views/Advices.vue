@@ -147,11 +147,6 @@ export default {
 <style lang="stylus">
 @import '../assets/css/_variables.styl'
 
-  .center
-    display: flex
-    align-items: center
-    justify-content: center
-
   .title
     color: terceary-color
     font-size: xx-large
