@@ -2,150 +2,185 @@
   <div class="advices">
     <h1 class="title center">Advices</h1>
 
-    <div class="advice left">
-      <div class="icon-advice center">
-        <div class="background-icon-advice center">
-          <i class="fas fa-hands-wash"></i>
+    <transition name="fade-left">
+      <div v-show="numAdvice > 0" class="advice left">
+        <div class="icon-advice center">
+          <div class="background-icon-advice center">
+            <i class="fas fa-hands-wash"></i>
+          </div>
         </div>
+        <div class="content">
+            <h2 class="">Wash your hands frequently and carefully</h2>
+            <p>
+              Use warm water and soap and rub your hands for at least 20 seconds. Work the lather to your wrists, between your fingers, and under your fingernails. You can also use an antibacterial and antiviral soap.
+            </p>
+          </div>
       </div>
-      <div class="content">
-          <h2 class="">Wash your hands frequently and carefully</h2>
+    </transition>
+
+    <transition name="fade-right">
+      <div v-show="numAdvice > 1" class="advice right">
+        <div class="icon-advice center">
+          <div class="background-icon-advice center">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+        </div>
+        <div class="content">
+          <h2 class="">Avoid touching your face</h2>
           <p>
-            Use warm water and soap and rub your hands for at least 20 seconds. Work the lather to your wrists, between your fingers, and under your fingernails. You can also use an antibacterial and antiviral soap.
+            Avoid touching any part of your face or head, including your mouth, nose, and eyes. Also avoid biting your fingernails. This can give SARS-CoV-2 a chance to go from your hands into your body.
           </p>
         </div>
-    </div>
+      </div>
+    </transition>
 
-    <div class="advice right">
-      <div class="icon-advice center">
-        <div class="background-icon-advice center">
-          <i class="fas fa-exclamation-circle"></i>
+    <transition name="fade-left">
+      <div v-show="numAdvice > 2" class="advice left">
+        <div class="icon-advice center">
+          <div class="background-icon-advice center">
+            <i class="fas fa-handshake-slash"></i>
+          </div>
+        </div>
+        <div class="content">
+          <h2 class="">Stop shaking hands and hugging people</h2>
+          <p>
+            Similarly, avoid touching other people. Skin-to-skin contact can transmit SARS-CoV-2 from one person to another.
+          </p>
         </div>
       </div>
-      <div class="content">
-        <h2 class="">Avoid touching your face</h2>
-        <p>
-          Avoid touching any part of your face or head, including your mouth, nose, and eyes. Also avoid biting your fingernails. This can give SARS-CoV-2 a chance to go from your hands into your body.
-        </p>
-      </div>
-    </div>
+    </transition>
 
-    <div class="advice left">
-      <div class="icon-advice center">
-        <div class="background-icon-advice center">
-          <i class="fas fa-handshake-slash"></i>
+    <transition name="fade-right">
+      <div v-show="numAdvice > 3" class="advice right">
+        <div class="icon-advice center">
+          <div class="background-icon-advice center">
+            <i class="fas fa-head-side-cough-slash"></i>
+          </div>
+        </div>
+        <div class="content">
+          <h2 class="">Cover your mouth and nose when you cough and sneeze</h2>
+          <p>
+            SARS-CoV-2 is found in high amounts in the nose and mouth. This means it can be carried by air droplets to other people when you cough, sneeze, or talk. It can also land on hard surfaces and stay there for up to 3 days.
+
+            Use a tissue or sneeze into your elbow to keep your hands as clean as possible. Wash your hands carefully after you sneeze or cough, regardless.
+          </p>
         </div>
       </div>
-      <div class="content">
-        <h2 class="">Stop shaking hands and hugging people</h2>
-        <p>
-          Similarly, avoid touching other people. Skin-to-skin contact can transmit SARS-CoV-2 from one person to another.
-        </p>
-      </div>
-    </div>
+    </transition>
 
-    <div class="advice right">
-      <div class="icon-advice center">
-        <div class="background-icon-advice center">
-          <i class="fas fa-head-side-cough-slash"></i>
+    <transition name="fade-left">
+      <div v-show="numAdvice > 4" class="advice left">
+        <div class="icon-advice center">
+          <div class="background-icon-advice center">
+            <i class="fas fa-pump-soap"></i>
+          </div>
+        </div>
+        <div class="content">
+          <h2 class="">Clean and disinfect surfaces</h2>
+          <p>
+            Use alcohol-based disinfectants to clean hard surfaces in your home like:
+
+      countertops
+      door handles
+      furniture
+      toys
+
+      Also, clean your phone, laptop, and anything else you use regularly several times a day.
+          </p>
         </div>
       </div>
-      <div class="content">
-        <h2 class="">Cover your mouth and nose when you cough and sneeze</h2>
-        <p>
-          SARS-CoV-2 is found in high amounts in the nose and mouth. This means it can be carried by air droplets to other people when you cough, sneeze, or talk. It can also land on hard surfaces and stay there for up to 3 days.
+    </transition>
 
-Use a tissue or sneeze into your elbow to keep your hands as clean as possible. Wash your hands carefully after you sneeze or cough, regardless.
-        </p>
-      </div>
-    </div>
+    <transition name="fade-right">
+      <div v-show="numAdvice > 5" class="advice right">
+        <div class="icon-advice center">
+          <div class="background-icon-advice center">
+            <i class="fas fa-people-arrows"></i>
+          </div>
+        </div>
+        <div class="content">
+          <h2 class="">Take physical (social) distancing seriously</h2>
+          <p>
+            If you’re carrying the SARS-CoV-2 virus, it’ll be found in high amounts in your spit (sputum). This can happen even if you don’t have symptoms.
 
-    <div class="advice left">
-      <div class="icon-advice center">
-        <div class="background-icon-advice center">
-          <i class="fas fa-pump-soap"></i>
+  Physical (social) distancing, also means staying home and working remotely when possible.
+
+  If you must go out for necessities, keep a distance of 6 feet (2 m) from other people. You can transmit the virus by speaking to someone in close contact to you.
+          </p>
         </div>
       </div>
-      <div class="content">
-        <h2 class="">Clean and disinfect surfaces</h2>
-        <p>
-          Use alcohol-based disinfectants to clean hard surfaces in your home like:
+    </transition>
 
-    countertops
-    door handles
-    furniture
-    toys
+    <transition name="fade-left">
+      <div v-show="numAdvice > 6" class="advice left">
+        <div class="icon-advice center">
+          <div class="background-icon-advice center">
+            <i class="fas fa-users-slash"></i>
+          </div>
+        </div>
+        <div class="content">
+          <h2 class="">Do not gather in groups</h2>
+          <p>
+            Being in a group or gathering makes it more likely that you’ll be in close contact with someone.
 
-Also, clean your phone, laptop, and anything else you use regularly several times a day.
-        </p>
-      </div>
-    </div>
-
-    <div class="advice right">
-      <div class="icon-advice center">
-        <div class="background-icon-advice center">
-          <i class="fas fa-people-arrows"></i>
+  This includes avoiding all religious places of worship, as you may have to sit or stand too close to another congregant. It also includes not congregating at parks or beaches.
+          </p>
         </div>
       </div>
-      <div class="content">
-        <h2 class="">Take physical (social) distancing seriously</h2>
-        <p>
-          If you’re carrying the SARS-CoV-2 virus, it’ll be found in high amounts in your spit (sputum). This can happen even if you don’t have symptoms.
+    </transition>
 
-Physical (social) distancing, also means staying home and working remotely when possible.
+    <transition name="fade-right">
+      <div v-show="numAdvice > 7" class="advice right">
+        <div class="icon-advice center">
+          <div class="background-icon-advice center">
+            <i class="fas fa-head-side-mask"></i>
+          </div>
+        </div>
 
-If you must go out for necessities, keep a distance of 6 feet (2 m) from other people. You can transmit the virus by speaking to someone in close contact to you.
-        </p>
-      </div>
-    </div>
+        <div class="content">
+          <h2 class="">Wear a (homemade) mask</h2>
+          <p>
+            The Centers for Disease Control and Prevention (CDC) recommendsTrusted Source that almost everyone wears a cloth face mask in public settings where physical distancing may be difficult, such as grocery stores.
 
-    <div class="advice left">
-      <div class="icon-advice center">
-        <div class="background-icon-advice center">
-          <i class="fas fa-users-slash"></i>
+  When used correctly, these masks can help prevent people who are asymptomatic or undiagnosed from transmitting SARS-CoV-2 when they breathe, talk, sneeze, or cough. This, in turn, slows the transmission of the virus.
+          </p>
         </div>
       </div>
-      <div class="content">
-        <h2 class="">Do not gather in groups</h2>
-        <p>
-          Being in a group or gathering makes it more likely that you’ll be in close contact with someone.
-
-This includes avoiding all religious places of worship, as you may have to sit or stand too close to another congregant. It also includes not congregating at parks or beaches.
-        </p>
-      </div>
-    </div>
-
-    <div class="advice right">
-      <div class="icon-advice center">
-        <div class="background-icon-advice center">
-          <i class="fas fa-head-side-mask"></i>
-        </div>
-      </div>
-
-      <div class="content">
-        <h2 class="">Wear a (homemade) mask</h2>
-        <p>
-          The Centers for Disease Control and Prevention (CDC) recommendsTrusted Source that almost everyone wears a cloth face mask in public settings where physical distancing may be difficult, such as grocery stores.
-
-When used correctly, these masks can help prevent people who are asymptomatic or undiagnosed from transmitting SARS-CoV-2 when they breathe, talk, sneeze, or cough. This, in turn, slows the transmission of the virus.
-        </p>
-      </div>
-    </div>
+    </transition>
 
   </div>
+
 </template>
 
 <script>
 export default {
   name: 'Advices',
+  data () {
+    return {
+      numAdvice: 0
+    }
+  },
   created () {
     this.$store.commit('changePage', 'advices')
+    this.startAnimation()
+  },
+
+  methods: {
+    startAnimation () {
+      setTimeout(() => {
+        console.log(this.numAdvice += 1)
+        if (this.numAdvice < 9) {
+          this.startAnimation()
+        }
+      }, 200)
+    }
   }
 }
 </script>
 
 <style lang="stylus">
 @import '../assets/css/_variables.styl'
+@import '../assets/css/_animations.styl'
 
   .title
     color: terceary-color

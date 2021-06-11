@@ -1,6 +1,8 @@
 <template>
   <div class="home center" >
-    <div v-show="!isLoading">
+
+    <transition name="fade-bottom">
+      <div v-show="!isLoading">
       <div class="baner">
         <div class="left-baner">
           <span class="cases"><i class=" icon fas fa-head-side-virus"></i> {{ lastestTotals.confirmed | amount}} cases</span>
@@ -28,13 +30,17 @@
 
       <section class="container">
         <div class="countries">
-          <div v-for="flag in filteredFlags" :key="flag.numericCode" class="center">
-            <card class="max-width-card" :country="flag" />
-          </div>
+            <div v-for="flag in filteredFlags" :key="flag.numericCode" class="center">
+              <card class="max-width-card" :country="flag" />
+            </div>
         </div>
       </section>
-    </div>
-    <loader v-show="isLoading"/>
+      </div>
+    </transition>
+
+    <transition name="fade-top">
+      <loader v-show="isLoading"/>
+    </transition>
 
   </div>
 </template>
@@ -99,6 +105,7 @@ export default {
 
 <style lang="stylus">
 @import '../assets/css/_variables.styl'
+@import '../assets/css/_animations.styl'
 
 .max-width-card
   max-width: 160px

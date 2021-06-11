@@ -1,66 +1,70 @@
 <template>
   <div class="center">
-    <div class="container" v-show="!isLoading">
-      <h1 class="name-country">{{ countryData.name }}</h1>
-      <h2 class="subtitle center">{{ countryData.region }}</h2>
+    <transition name="fade-bottom">
+      <div class="container" v-show="!isLoading">
+        <h1 class="name-country">{{ countryData.name }}</h1>
+        <h2 class="subtitle center">{{ countryData.region }}</h2>
 
-      <div class="country-detail">
-        <img class="img" :src="countryData.flag" alt="country.name">
+        <div class="country-detail">
+          <img class="img" :src="countryData.flag" alt="country.name">
 
-        <div class="info-country">
-          <div class="info">
-            <div class="center">
-              <div class="background-icon">
-                <i class=" icon fas fa-head-side-virus"></i>
+          <div class="info-country">
+            <div class="info">
+              <div class="center">
+                <div class="background-icon">
+                  <i class=" icon fas fa-head-side-virus"></i>
+                </div>
               </div>
+
+              <p v-if="country">{{ country.confirmed | amount }} <span>Confirmed</span></p>
             </div>
 
-            <p v-if="country">{{ country.confirmed | amount }} <span>Confirmed</span></p>
-          </div>
-
-          <div class="info">
-            <div class="center">
-              <div class="background-icon">
-                <i class=" icon fas fa-exclamation-circle"></i>
+            <div class="info">
+              <div class="center">
+                <div class="background-icon">
+                  <i class=" icon fas fa-exclamation-circle"></i>
+                </div>
               </div>
-            </div>
-            <p v-if="country">{{ country.critical | amount }} <span>Critical</span></p>
-          </div>
-
-          <div class="info">
-            <div class="center">
-              <div class="background-icon">
-                <i class=" icon fas fa-skull-crossbones"></i>
-              </div>
+              <p v-if="country">{{ country.critical | amount }} <span>Critical</span></p>
             </div>
 
-            <p v-if="country">{{ country.deaths | amount }} <span>Deaths</span></p>
-          </div>
-
-          <div class="info">
-            <div class="center">
-              <div class="background-icon">
-                <i class=" icon fas fa-fist-raised"></i>
+            <div class="info">
+              <div class="center">
+                <div class="background-icon">
+                  <i class=" icon fas fa-skull-crossbones"></i>
+                </div>
               </div>
+
+              <p v-if="country">{{ country.deaths | amount }} <span>Deaths</span></p>
             </div>
 
-            <p v-if="country">{{ country.recovered | amount }} <span>Recovered</span></p>
+            <div class="info">
+              <div class="center">
+                <div class="background-icon">
+                  <i class=" icon fas fa-fist-raised"></i>
+                </div>
+              </div>
+
+              <p v-if="country">{{ country.recovered | amount }} <span>Recovered</span></p>
+            </div>
+
+            <p v-if="country" class="p-dark-color center">Last update: {{ lastUpdate }}</p>
+        </div>
+
+        </div>
+        <h2 class="subtitle center">More countries in {{ countryData.region }}</h2>
+
+        <div class="countries">
+          <div v-for="flag in countriesRegion" :key="flag.numericCode " class="center">
+          <card :country="flag" />
           </div>
-
-          <p v-if="country" class="p-dark-color center">Last update: {{ lastUpdate }}</p>
-      </div>
-
-      </div>
-      <h2 class="subtitle center">More countries in {{ countryData.region }}</h2>
-
-      <div class="countries">
-        <div v-for="flag in countriesRegion" :key="flag.numericCode " class="center">
-        <card :country="flag" />
         </div>
       </div>
-    </div>
+    </transition>
 
-    <loader v-show="isLoading"/>
+    <transition name="fade-top">
+      <loader v-show="isLoading"/>
+    </transition>
 
   </div>
 </template>
